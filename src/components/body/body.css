@@ -1,0 +1,12 @@
+.central-bloc {
+  position: fixed;
+  top: 80px; /* hauteur du header */
+  left: 35%; /* pour prendre en compte les 90% de large du header et du footer et les 30% du menu de navigation */
+  width: 55%; /* 70% des 90% de large du header et du footer */
+  height: calc(
+    100vh - 160px
+  ); /* hauteur de la page - hauteur du header et du footer */
+  background-color: #0f0d92; /* couleur de fond */
+  padding: 20px; /* espacement interne */
+  overflow-y: auto; /* pour avoir une barre de défilement si nécessaire */
+}

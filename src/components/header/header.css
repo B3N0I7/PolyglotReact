@@ -1,0 +1,11 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  background-color: #0f0d92; /* couleur de fond */
+  padding: 20px; /* espacement interne */
+  text-align: center; /* alignement du texte */
+  z-index: 1000; /* pour être sûr que le header soit au-dessus des autres éléments */
+}
