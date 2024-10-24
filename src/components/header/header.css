@@ -5,8 +5,10 @@
   color: white;
   background-color: #333;
   text-align: center;
+  margin: auto;
 }
 .h1 {
   display: flex;
   text-align: center;
+  margin: auto;
 }

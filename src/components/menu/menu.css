@@ -1,6 +1,7 @@
 .navigation-menu {
+  /* display: flex; */
   height: 70vh;
-  width: 30vw;
+  width: 15vw;
   background-color: #333;
   border: 2px solid gold;
   margin: 10px;
