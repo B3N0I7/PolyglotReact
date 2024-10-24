@@ -1,6 +1,12 @@
 .header {
-  height: 20%;
+  display: flex;
+  height: 15vh;
+  width: 80vw;
   color: white;
   background-color: #333;
+  text-align: center;
+}
+.h1 {
+  display: flex;
   text-align: center;
 }

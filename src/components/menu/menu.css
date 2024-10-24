@@ -1,0 +1,8 @@
+.navigation-menu {
+  height: 70vh;
+  width: 30vw;
+  background-color: #333;
+  border: 2px solid gold;
+  margin: 10px;
+  padding: 20px;
+}
