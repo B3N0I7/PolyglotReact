@@ -3,23 +3,31 @@ import { Header } from "./components/header/Header";
 import { Body } from "./components/body/Body";
 import { Footer } from "./components/footer/Footer";
 import { Home } from "./components/home/Home";
+import { UserContext } from "./context/UserContext";
+import { useState } from "react";
 
 import "./App.css";
 
 function App() {
+  const [pseudo, setPseudo] = useState("");
+
   return (
-    <Router>
-      <div className="app">
-        <Header />
-        <div className="main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/main/*" element={<Body />} />
-          </Routes>
+    <UserContext.Provider value={{ pseudo, setPseudo }}>
+      {" "}
+      {/* Enveloppez l'application */}
+      <Router>
+        <div className="app">
+          <Header />
+          <div className="main">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/main/*" element={<Body />} />
+            </Routes>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    </Router>
+      </Router>
+    </UserContext.Provider>
   );
 }
 

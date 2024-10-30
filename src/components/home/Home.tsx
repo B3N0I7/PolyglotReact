@@ -1,26 +1,29 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 import "./home.css";
 
 export const Home = () => {
-  const [name, setName] = useState("");
+  const { setPseudo } = useContext(UserContext)!;
   const navigate = useNavigate();
+  const [pseudoInput, setPseudoInput] = useState("");
 
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    navigate(`/main?name=${name}`);
+    setPseudo(pseudoInput);
+    navigate("/main");
   };
 
   return (
     <div className="home-container">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Présente toi l'ami :</label>
+        <label htmlFor="pseudo">Quel est ton pseudo ?</label>
         <br />
         <input
           type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          id="pseudo"
+          value={pseudoInput}
+          onChange={(e) => setPseudoInput(e.target.value)}
           required
         />
         <br />
