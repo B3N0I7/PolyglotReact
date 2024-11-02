@@ -1,5 +1,4 @@
 .body-container {
   display: flex;
-  width: 90vw;
-  /* gap: 20px; */
+  width: 80vw;
 }

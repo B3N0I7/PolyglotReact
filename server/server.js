@@ -7,12 +7,18 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 connectDB();
 
-// app.use("api/words", wordRoutes);
 app.use("/api/words", wordRoutes);
 
 const PORT = process.env.PORT || 5000;

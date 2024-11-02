@@ -24,5 +24,4 @@ const wordSchema = new mongoose.Schema({
   },
 });
 
-// module.exports = mongoose.model("word", wordSchema);
 module.exports = mongoose.model("word", wordSchema, "dictionary");

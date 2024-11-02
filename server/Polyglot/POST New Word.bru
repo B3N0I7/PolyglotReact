@@ -1,0 +1,20 @@
+meta {
+  name: POST New Word
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5000/api/words
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "english": "eleven",
+    "french": "onze",
+    "category": "numbers",
+    "difficulty": "easy"
+  }
+}

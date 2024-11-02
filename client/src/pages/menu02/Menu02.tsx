@@ -1,3 +1,5 @@
+import React from "react";
+
 export const Menu02 = () => {
   return (
     <div>

@@ -1,3 +1,4 @@
+import React from "react";
 import { Menu } from "./../menu";
 import { Main } from "./../main";
 import "./body.css";

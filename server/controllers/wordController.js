@@ -1,4 +1,3 @@
-// word>>Word et Word dans les await
 const Word = require("./../models/word");
 
 exports.getAllWords = async (req, res) => {
@@ -19,7 +18,7 @@ exports.createWord = async (req, res) => {
   });
 
   try {
-    const newWord = await Word.save();
+    const newWord = await word.save();
     res.status(200).json(newWord);
   } catch (error) {
     res.status(400).json({ message: error.message });

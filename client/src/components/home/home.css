@@ -1,4 +1,12 @@
 .home-container {
   display: flex;
-  align-content: center;
+  margin: auto;
+}
+
+.input-container {
+  padding: 1em;
+  margin: 2em;
+  outline: none;
+  border-color: solid saddlebrown;
+  box-shadow: 10 10 25px saddlebrown(0, 0, 255, 0.5);
 }
