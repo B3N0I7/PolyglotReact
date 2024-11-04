@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_URI } from "./constants";
+import { API_URI, TITLE } from "./constants";
 import "./menu01.css";
 
 export const Menu01 = () => {
@@ -59,7 +59,7 @@ export const Menu01 = () => {
 
   return (
     <div>
-      <h3>Ajouter des mots</h3>
+      <h3>{TITLE}</h3>
       <form onSubmit={handleSubmit}>
         <label>Entrer le mot en anglais</label>
         <input

@@ -1,0 +1,19 @@
+meta {
+  name: Check VerifyTranslation
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:5000/api/words/verify
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "wordId": "672630f8215296f535a8a308",
+    "english": "eleven",
+    "french": "onze"
+  }
+}

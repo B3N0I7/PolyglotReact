@@ -70,3 +70,44 @@ exports.delete = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+// Quiz
+exports.getRandomEnglishWord = async (req, res) => {
+  try {
+    const word = await Word.aggregate([{ $sample: { size: 1 } }]);
+    res.json({ english: word[0].english, id: word[0]._id });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.getRandomFrenchWord = async (req, res) => {
+  try {
+    const word = await Word.aggregate([{ $sample: { size: 1 } }]);
+    res.json({ french: word[0].french, id: word[0]._id });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+exports.verifyTranslation = async (req, res) => {
+  try {
+    const { wordId, english, french } = req.body;
+    const word = await Word.findById(wordId);
+
+    if (!word) {
+      return res.status(404).json({ message: "Word not found" });
+    }
+
+    const isCorrect =
+      word.english.toLowerCase() === english.toLowerCase() &&
+      word.french.toLowerCase() === french.toLowerCase();
+
+    res.json({
+      isCorrect,
+      correctEnglish: word.english,
+      correctFrench: word.french,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
