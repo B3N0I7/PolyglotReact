@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { API_URI, TITLE } from "./constants";
-import "./menu01.css";
+import { UserContext } from "./../../context/UserContext";
+import "./addWord.css";
 
-export const Menu01 = () => {
+export const AddWord = () => {
+  const { pseudo } = useContext(UserContext)!;
   const [englishWord, setEnglishWord] = useState("");
   const [frenchWord, setFrenchWord] = useState("");
   const [category, setCategory] = useState("");
@@ -12,7 +14,7 @@ export const Menu01 = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(API_URI, {
+      const response = await fetch(`${API_URI}/${pseudo}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -22,6 +24,7 @@ export const Menu01 = () => {
           french: frenchWord,
           category: category,
           difficulty: difficulty,
+          creationDate: Date.now,
         }),
       });
       if (response.ok) {
@@ -82,7 +85,6 @@ export const Menu01 = () => {
           type="text"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          required
         />
         <br />
         <label>Entrer le niveau de difficulté</label>
@@ -90,7 +92,6 @@ export const Menu01 = () => {
           type="text"
           value={difficulty}
           onChange={(e) => setDifficulty(e.target.value)}
-          required
         />
         <br />
         <button type="submit">Valider</button>

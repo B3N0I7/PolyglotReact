@@ -2,6 +2,7 @@ import React from "react";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
+import { API_URI } from "./constants";
 import "./home.css";
 
 export const Home = () => {
@@ -9,9 +10,25 @@ export const Home = () => {
   const navigate = useNavigate();
   const [pseudoInput, setPseudoInput] = useState("");
 
-  const handleSubmit = (event: { preventDefault: () => void }) => {
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     setPseudo(pseudoInput);
+
+    try {
+      const response = await fetch(API_URI, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ pseudo: pseudoInput }),
+      });
+
+      const data = await response.json();
+      console.log(data.message);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+
     navigate("/main");
   };
 

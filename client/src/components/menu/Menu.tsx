@@ -8,19 +8,26 @@ export const Menu = () => {
       <h3>Que voulez-vous faire ?</h3>
       <br />
       <p>
-        <Link to="/main/menu01">Ajouter des mots</Link>
+        <Link to="/main/AddWord">Ajouter des mots</Link>
       </p>
       <p>
-        <Link to="/main/menu02">Modifier des mots</Link>
+        <Link to="/main/UpdateWord">Modifier des mots</Link>
       </p>
       <p>
-        <Link to="/main/menu03">Consulter la liste des mots</Link>
+        <Link to="/main/ShowWords">Consulter la liste des mots</Link>
       </p>
       <p>
-        <Link to="/main/menu04">Faire un quiz</Link>
+        <Link to="/main/QuizFrenchEnglish">
+          Faire un quiz Français - Anglais
+        </Link>
       </p>
       <p>
-        <Link to="/main/menu05">Quitter</Link>
+        <Link to="/main/QuizEnglishFrench">
+          Faire un quiz Anglais - Français
+        </Link>
+      </p>
+      <p>
+        <Link to="/main/Quit">Quitter</Link>
       </p>
     </div>
   );

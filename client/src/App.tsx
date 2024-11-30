@@ -14,8 +14,6 @@ function App() {
 
   return (
     <UserContext.Provider value={{ pseudo, setPseudo }}>
-      {" "}
-      {/* Enveloppez l'application */}
       <Router>
         <div className="app">
           <Header />

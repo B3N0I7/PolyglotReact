@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 const wordSchema = new mongoose.Schema({
-  // id: {
-  //   type: String,
-  //   required: true,
-  // },
+  _id: {
+    type: String,
+  },
   english: {
     type: String,
     required: true,
@@ -19,9 +18,12 @@ const wordSchema = new mongoose.Schema({
   },
   difficulty: {
     type: String,
-    enum: ["easy", "medium", "hard"],
-    default: "medium",
+    required: false,
+  },
+  creationDate: {
+    type: Date,
+    default: Date.now,
   },
 });
 
-module.exports = mongoose.model("word", wordSchema, "dictionary");
+module.exports = wordSchema;

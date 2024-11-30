@@ -57,3 +57,8 @@ tr:hover {
 .pagination button.active {
   background-color: #666;
 }
+
+.filteredList {
+  margin: 3em;
+  padding: 1em;
+}
