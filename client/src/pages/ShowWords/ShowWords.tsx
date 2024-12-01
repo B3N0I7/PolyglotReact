@@ -47,7 +47,11 @@ export const ShowWords = () => {
       <h3>{TITLE}</h3>
       <select
         className="filteredList"
-        onChange={(e) => setCategoryFilter(e.target.value)}
+        // onChange={(e) => setCategoryFilter(e.target.value)}
+        onChange={(e) => {
+          setCategoryFilter(e.target.value);
+          setCurrentPage(1);
+        }}
       >
         <option value="all">Toutes les catégories</option>
         <option value="numbers">numbers</option>
@@ -56,7 +60,11 @@ export const ShowWords = () => {
       </select>
       <select
         className="filteredList"
-        onChange={(f) => setDifficultyFilter(f.target.value)}
+        // onChange={(f) => setDifficultyFilter(f.target.value)}
+        onChange={(f) => {
+          setDifficultyFilter(f.target.value);
+          setCurrentPage(1);
+        }}
       >
         <option value="all">Toutes les difficultés</option>
         <option value="easy">facile</option>
