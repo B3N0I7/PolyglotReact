@@ -76,6 +76,8 @@ export const ShowWords = () => {
           <tr>
             <th>Mot anglais</th>
             <th>Mot français</th>
+            <th>Catégorie</th>
+            <th>Difficulté</th>
           </tr>
         </thead>
         <tbody>
@@ -83,6 +85,8 @@ export const ShowWords = () => {
             <tr key={`${word._id}-${index}`}>
               <td>{word.english}</td>
               <td>{word.french}</td>
+              <td>{word.category}</td>
+              <td>{word.difficulty}</td>
             </tr>
           ))}
         </tbody>

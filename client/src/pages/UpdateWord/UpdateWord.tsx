@@ -4,12 +4,13 @@ import { UserContext } from "../../context/UserContext";
 import { Word } from "../../models/word.ts";
 import { TITLE, API_URI_ENGLISH, API_URI_FRENCH, API_URI } from "./constants";
 
-export const UpdateWord: React.FC = () => {
+export const UpdateWord = () => {
   const { pseudo } = useContext(UserContext)!;
   const [searchWord, setSearchWord] = useState<string>("");
   const [isEnglish, setIsEnglish] = useState<boolean>(true);
   const [wordData, setWordData] = useState<Word | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,14 +44,24 @@ export const UpdateWord: React.FC = () => {
         `wordData: ${wordData._id}-${wordData.english}-${wordData.french}-${wordData.category}-${wordData.difficulty}`
       );
       console.log(`wordData.id: ${wordData._id}`);
+      console.log(`wordData : ${wordData}`);
       try {
-        const response = await fetch(`/${API_URI}/${pseudo}/${wordData._id}`, {
+        const response = await fetch(`${API_URI}/${pseudo}/${wordData._id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(wordData),
+          body: JSON.stringify({
+            english: wordData.english,
+            french: wordData.french,
+            category: wordData.category,
+            difficulty: wordData.difficulty,
+          }),
         });
+
+        if (response.ok) {
+          setSuccess("Le mot a bien été modifié.");
+        }
 
         if (!response.ok) {
           throw new Error("Error updating word");
@@ -95,8 +106,6 @@ export const UpdateWord: React.FC = () => {
         <button type="submit">Rechercher</button>
       </form>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
       {wordData && (
         <form onSubmit={handleUpdate}>
           <div>
@@ -138,6 +147,8 @@ export const UpdateWord: React.FC = () => {
           <button type="submit">Mettre à jour</button>
         </form>
       )}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {success && <p style={{ color: "green" }}>{success}</p>}
     </div>
   );
 };

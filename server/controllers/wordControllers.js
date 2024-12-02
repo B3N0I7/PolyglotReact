@@ -164,7 +164,9 @@ exports.updateWord = async (req, res) => {
   const { pseudo, id } = req.params;
   const collectionName = `${pseudo}-dictionary`;
   const PseudoWord = mongoose.model(collectionName, wordSchema);
-
+  console.log(`Pseudo: ${pseudo}, Id: ${id}`);
+  console.log(`Params: `, req.params);
+  console.log(`Body: `, req.body);
   try {
     const updatedWord = await PseudoWord.findByIdAndUpdate(
       id,
