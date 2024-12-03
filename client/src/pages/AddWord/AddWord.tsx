@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import { API_URI, TITLE } from "./constants";
+import { API_URI, TITLE, ERROR_MESSAGE, SUCCESS_MESSAGE } from "./constants";
 import { UserContext } from "./../../context/UserContext";
+import { Message } from "./../../shared/messagesSuccessError";
 import "./addWord.css";
 
 export const AddWord = () => {
@@ -9,6 +10,7 @@ export const AddWord = () => {
   const [frenchWord, setFrenchWord] = useState("");
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const [isCorrect, setIsCorrect] = useState(false);
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (event) => {
@@ -29,14 +31,16 @@ export const AddWord = () => {
       });
       if (response.ok) {
         console.log("Word added successfully!");
-        setMessage("Mot ajouté avec succès !");
+        setIsCorrect(true);
+        setMessage(SUCCESS_MESSAGE);
         setEnglishWord("");
         setFrenchWord("");
         setCategory("");
         setDifficulty("");
       } else {
         console.error("Word not added.");
-        setMessage("Echec de l'ajout du mot.");
+        setIsCorrect(false);
+        setMessage(ERROR_MESSAGE);
       }
     } catch (error) {
       console.error("Error: ", error);
@@ -46,6 +50,7 @@ export const AddWord = () => {
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
+        setIsCorrect(false);
         setMessage("");
       }, 3000);
       return () => clearTimeout(timer);
@@ -96,10 +101,14 @@ export const AddWord = () => {
         <br />
         <button type="submit">Valider</button>
         <button type="button" onClick={handleQuit}>
-          Quitter
+          Effacer
         </button>
         <br />
-        {message && <p>{message}</p>}
+        <Message
+          message={message}
+          setMessage={setMessage}
+          type={isCorrect ? "goodAnswer" : "badAnswer"}
+        />
       </form>
     </div>
   );

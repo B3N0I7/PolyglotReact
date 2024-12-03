@@ -1,0 +1,13 @@
+span {
+  padding: 0.5em;
+}
+
+.badAnswer {
+  color: #f75a05;
+  background-color: #555555;
+}
+
+.goodAnswer {
+  color: #00aa00;
+  background-color: #555555;
+}

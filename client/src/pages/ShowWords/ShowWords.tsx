@@ -47,7 +47,6 @@ export const ShowWords = () => {
       <h3>{TITLE}</h3>
       <select
         className="filteredList"
-        // onChange={(e) => setCategoryFilter(e.target.value)}
         onChange={(e) => {
           setCategoryFilter(e.target.value);
           setCurrentPage(1);
@@ -60,7 +59,6 @@ export const ShowWords = () => {
       </select>
       <select
         className="filteredList"
-        // onChange={(f) => setDifficultyFilter(f.target.value)}
         onChange={(f) => {
           setDifficultyFilter(f.target.value);
           setCurrentPage(1);

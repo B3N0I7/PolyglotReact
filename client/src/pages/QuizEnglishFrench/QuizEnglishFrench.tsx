@@ -1,6 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { UserContext } from "./../../context/UserContext";
-import { API_URI_RANDOM_WORD, API_URI_VERIFY_WORD, TITLE } from "./constants";
+import {
+  API_URI_RANDOM_WORD,
+  API_URI_VERIFY_WORD,
+  TITLE,
+  ERROR_MESSAGE,
+  SUCCESS_MESSAGE,
+} from "./constants";
+import { Message } from "./../../shared/messagesSuccessError";
 import "./quizEnglishFrench.css";
 
 type TranslationType = "english" | "french";
@@ -14,7 +21,7 @@ export const QuizEnglishFrench = () => {
     french: "",
   });
   const [userInput, setUserInput] = useState({ english: "", french: "" });
-  const [feedback, setFeedback] = useState("");
+  const [message, setMessage] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
 
   const generateEnglishWord = async () => {
@@ -37,7 +44,7 @@ export const QuizEnglishFrench = () => {
         french: "",
       });
       setUserInput({ english: data.english, french: "" });
-      setFeedback("");
+      setMessage("");
     } catch (error) {
       console.error("Erreur lors de la récupération du mot anglais :", error);
     }
@@ -64,34 +71,22 @@ export const QuizEnglishFrench = () => {
       const data = await response.json();
 
       if (data.isCorrect) {
-        setFeedback("Bonne réponse.");
         setIsCorrect(true);
+        setMessage(SUCCESS_MESSAGE);
         console.log("Yes!");
       } else {
         if (type === "english") {
-          setFeedback(
-            `Incorrect. La bonne réponse en anglais est : ${data.correctEnglish}`
-          );
-        } else if (type === "french") {
-          setFeedback(
-            `Incorrect. La bonne réponse en français est : ${data.correctFrench}`
-          );
           setIsCorrect(false);
+          setMessage(`${ERROR_MESSAGE} ${data.correctEnglish}`);
+        } else if (type === "french") {
+          setIsCorrect(false);
+          setMessage(`${ERROR_MESSAGE} ${data.correctFrench}`);
         }
       }
     } catch (error) {
       console.error("Erreur lors de la vérification de la traduction :", error);
     }
   };
-
-  useEffect(() => {
-    if (feedback) {
-      const timer = setTimeout(() => {
-        setFeedback("");
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [feedback]);
 
   return (
     <div>
@@ -132,11 +127,11 @@ export const QuizEnglishFrench = () => {
           Vérifier le mot français
         </button>
       </div>
-      {feedback && (
-        <div className={`feedback ${isCorrect ? "goodAnswer" : "badAnswer"}`}>
-          {feedback}
-        </div>
-      )}
+      <Message
+        message={message}
+        setMessage={setMessage}
+        type={isCorrect ? "goodAnswer" : "badAnswer"}
+      />
     </div>
   );
 };

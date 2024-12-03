@@ -2,19 +2,27 @@ import React from "react";
 import { useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Word } from "../../models/word.ts";
-import { TITLE, API_URI_ENGLISH, API_URI_FRENCH, API_URI } from "./constants";
+import { Message } from "./../../shared/messagesSuccessError.tsx";
+import {
+  TITLE,
+  API_URI_ENGLISH,
+  API_URI_FRENCH,
+  API_URI_UPDATE,
+  ERROR_MESSAGE,
+  SUCCESS_MESSAGE,
+} from "./constants";
 
 export const UpdateWord = () => {
   const { pseudo } = useContext(UserContext)!;
   const [searchWord, setSearchWord] = useState<string>("");
   const [isEnglish, setIsEnglish] = useState<boolean>(true);
   const [wordData, setWordData] = useState<Word | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
+    setMessage("");
     const url = isEnglish
       ? `${API_URI_ENGLISH}/${pseudo}/${searchWord}`
       : `${API_URI_FRENCH}/${pseudo}/${searchWord}`;
@@ -33,7 +41,8 @@ export const UpdateWord = () => {
       console.log(data.difficulty);
       setWordData(data);
     } catch (err) {
-      setError(err.message);
+      setIsCorrect(false);
+      setMessage(err.message);
     }
   };
 
@@ -46,28 +55,34 @@ export const UpdateWord = () => {
       console.log(`wordData.id: ${wordData._id}`);
       console.log(`wordData : ${wordData}`);
       try {
-        const response = await fetch(`${API_URI}/${pseudo}/${wordData._id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            english: wordData.english,
-            french: wordData.french,
-            category: wordData.category,
-            difficulty: wordData.difficulty,
-          }),
-        });
+        const response = await fetch(
+          `${API_URI_UPDATE}/${pseudo}/${wordData._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              english: wordData.english,
+              french: wordData.french,
+              category: wordData.category,
+              difficulty: wordData.difficulty,
+            }),
+          }
+        );
 
         if (response.ok) {
-          setSuccess("Le mot a bien été modifié.");
+          setIsCorrect(true);
+          setMessage(SUCCESS_MESSAGE);
         }
 
         if (!response.ok) {
-          throw new Error("Error updating word");
+          setIsCorrect(false);
+          setMessage(ERROR_MESSAGE);
+          //throw new Error("Error updating word");
         }
       } catch (err) {
-        setError(err.message);
+        setMessage(err.message);
       }
     }
   };
@@ -147,8 +162,11 @@ export const UpdateWord = () => {
           <button type="submit">Mettre à jour</button>
         </form>
       )}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      <Message
+        message={message}
+        setMessage={setMessage}
+        type={isCorrect ? "goodAnswer" : "badAnswer"}
+      />
     </div>
   );
 };
