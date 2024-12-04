@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Word } from "../../models/word.ts";
-import { Message } from "./../../shared/messagesSuccessError.tsx";
+import { Message } from "./../../shared/messagesSuccessError/messagesSuccessError";
 import {
   TITLE,
   API_URI_ENGLISH,
