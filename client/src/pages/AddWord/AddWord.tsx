@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { API_URI, TITLE, ERROR_MESSAGE, SUCCESS_MESSAGE } from "./constants";
 import { UserContext } from "./../../context/UserContext";
-import { Message } from "./../../shared/messagesSuccessError";
+import { Message } from "./../../shared/messagesSuccessError/messagesSuccessError";
 import "./addWord.css";
 
 export const AddWord = () => {
