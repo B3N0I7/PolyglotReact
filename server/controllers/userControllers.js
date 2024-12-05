@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res) => {
   let { email, password } = req.body;
@@ -83,9 +83,9 @@ exports.signin = async (req, res) => {
       message: "Empty credentials supplied!",
     });
   } else {
-    User.find({ email })
+    User.findOne({ email })
       .then((data) => {
-        if (data) {
+        if (data.length > 0) {
           const hashedPassword = data[0].password;
           bcrypt
             .compare(password, hashedPassword)
@@ -95,6 +95,17 @@ exports.signin = async (req, res) => {
                   status: "SUCCESS",
                   message: "Signin successfully!",
                   data: data,
+                  token: jwt.sign(
+                    {
+                      _id: data._id,
+                      email: data.email,
+                      role: data.role,
+                    },
+                    "OnceUponATimeInHollywoodElGatoComeEverythingHeFind",
+                    {
+                      expiresIn: "1h",
+                    }
+                  ),
                 });
               } else {
                 res.json({
@@ -106,7 +117,7 @@ exports.signin = async (req, res) => {
             .catch((err) => {
               res.json({
                 status: "FAILED",
-                message: "An error occurred while comparing passwords!",
+                message: `An error occurred while comparing passwords!`,
               });
             });
         } else {

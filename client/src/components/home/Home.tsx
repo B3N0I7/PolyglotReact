@@ -34,19 +34,48 @@ export const Home = () => {
 
   return (
     <div className="home-container">
-      <form onSubmit={handleSubmit}>
-        <label>Quel est ton pseudo ?</label>
-        <br />
-        <input
-          className="input-container"
-          type="text"
-          value={pseudoInput}
-          onChange={(e) => setPseudoInput(e.target.value)}
-          required
-        />
-        <br />
-        <button type="submit">Valider</button>
-      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Invité</th>
+            <th>Reconnu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <form onSubmit={handleSubmit}>
+                <label>Quel est ton pseudo ?</label>
+                <br />
+                <input
+                  className="input-container"
+                  type="text"
+                  value={pseudoInput}
+                  onChange={(e) => setPseudoInput(e.target.value)}
+                  required
+                />
+                <br />
+                <button type="submit">Valider</button>
+              </form>
+            </td>
+            <td>
+              <form>
+                <label>Email</label>
+                <br />
+                <input type="text" />
+                <label>Mot de passe</label>
+                <br />
+                <input type="text" />
+                <br />
+                <button>Se connecter</button>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={2}>S'incrire</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };
